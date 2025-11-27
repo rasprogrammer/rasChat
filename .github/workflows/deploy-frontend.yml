@@ -34,4 +34,4 @@ jobs:
             docker stop raschat-front || true
             docker rm raschat-front || true
             docker build -t raschat-front .
-            docker run -d --name raschat-front -p 8070:8070 raschat-front
+            docker run -d --name raschat-front -p 8070:80 raschat-front
