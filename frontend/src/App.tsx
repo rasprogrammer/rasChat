@@ -13,6 +13,9 @@ const App: React.FC = () => {
         <Route path="/login" element={<Login />} />
         {/* 👇 Register page route */}
         <Route path="/register" element={<Register />} />
+        
+
+        
 
       </Routes>
     </Router>
