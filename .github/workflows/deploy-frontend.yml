@@ -20,7 +20,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_PRIVATE_KEY }}
-          source: "frontend/*"
+          source: "frontend/**"
           target: "~/raschat/frontend"
 
       - name: SSH & Deploy Docker
