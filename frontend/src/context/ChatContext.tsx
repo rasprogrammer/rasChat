@@ -3,6 +3,10 @@ import type { Conversation, LoginData, User } from "./../types/types";
 import { uid } from "../utils/uid";
 import { formatTime } from "../utils/time";
 import { MOCK_CONVERSATIONS, MOCK_USERS } from "./../mock";
+import axios from "axios";
+import type { ApiResponse } from "../requests/types";
+import successHandler from "../requests/successHandler";
+import errorHandler from "../requests/errorHandler";
 
 interface ChatContextValue {
   user: User | null;
@@ -59,8 +63,29 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("chat_conversations", JSON.stringify(conversations));
   }, [conversations]);
 
-  function login({email, password}: LoginData) {
-    setUser({ id: "me", name: email.split("@")[0], email, avatar: "", online: true });
+  
+  async function login(loginData: LoginData) {
+
+
+      const response = await axios.post<ApiResponse>("/auth/login", loginData, {
+        withCredentials: true,
+      });
+      console.log("response >>> ", response);
+      const data: ApiResponse = successHandler(response.data, {
+        notifyOnSuccess: true,
+      });
+      console.log("data >>> ", data);
+    // const response = await fetch("https://api/auth/login", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ email, password }),
+    // });
+    //  if (response.ok && data.status === "success") {
+    // setUser({ id: "me", name: email.split("@")[0], email, avatar: "", online: true });
+    //  }
+    console.log(response);
   }
 
   function logout() {
