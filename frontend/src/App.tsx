@@ -4,13 +4,9 @@ import LoginLayout from "./pages/LoginLayout";
 // import ChatLayout from "./pages/ChatLayout";
 
 function AppContent() {
-  const { user, login } = useChat();
+  const { user, login, register } = useChat();
 
-  const handleRegister = () => {
-
-  };
-
-  if (!user) return <LoginLayout handleLogin={login} handleRegister={handleRegister} />;
+  if (!user) return <LoginLayout handleLogin={login} handleRegister={register} />;
   return <ChatLayout />;
 }
 
