@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, useRef } from "react";
-import type { Conversation, LoginData, User } from "./../types/types";
+import type { Conversation, LoginData, RegisterData, User } from "./../types/types";
 import { BASE_URL } from "../utils/urls";
 import { uid } from "../utils/uid";
 import { formatTime } from "../utils/time";
@@ -16,6 +16,7 @@ interface ChatContextValue {
   activeConvId: number | string | null;
   newMsg: string;
 
+  register: ({name, email, password}: RegisterData) => void;
   login: ({email, password}: LoginData) => void;
   logout: () => void;
 
@@ -64,6 +65,25 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("chat_conversations", JSON.stringify(conversations));
   }, [conversations]);
 
+  async function register(registerData: RegisterData) {
+    try {
+      const response = await axios.post<ApiResponse>(BASE_URL+'/api/auth/register', registerData, {
+        withCredentials: true
+      });
+
+      const data: ApiResponse = successHandler(response.data, {
+        notifyOnSuccess: true
+      });
+      
+      const user = data.data;
+
+      setUser({ id: "me", name: user.email.split("@")[0], email: user.email, avatar: "", online: true });
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   
   async function login(loginData: LoginData) {
 
@@ -85,16 +105,6 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       console.log('error >> ', error); 
     }
 
-    // const response = await fetch("https://api/auth/login", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ email, password }),
-    // });
-    //  if (response.ok && data.status === "success") {
-    // setUser({ id: "me", name: email.split("@")[0], email, avatar: "", online: true });
-    //  }
   }
 
   async function logout() {
@@ -176,6 +186,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
         activeConvId,
         newMsg: "",
 
+        register,
         login,
         logout,
 
