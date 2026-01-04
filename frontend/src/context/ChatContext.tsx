@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useRef } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import type { Conversation, LoginData, RegisterData, User } from "./../types/types";
 import { BASE_URL } from "../utils/urls";
 import { uid } from "../utils/uid";
@@ -7,7 +7,6 @@ import { MOCK_CONVERSATIONS, MOCK_USERS } from "./../mock";
 import axios from "axios";
 import type { ApiResponse } from "../requests/types";
 import successHandler from "../requests/successHandler";
-import errorHandler from "../requests/errorHandler";
 
 interface ChatContextValue {
   user: User | null;
@@ -16,9 +15,9 @@ interface ChatContextValue {
   activeConvId: number | string | null;
   newMsg: string;
 
-  register: ({name, email, password}: RegisterData) => void;
-  login: ({email, password}: LoginData) => void;
-  logout: () => void;
+  register: (data: RegisterData) => Promise<void>;
+  login: (data: LoginData) => Promise<void>;
+  logout: () => Promise<void>;
 
   selectConversation: (id: number | string) => void;
   sendMessage: (text: string) => void;
@@ -32,114 +31,136 @@ interface ChatContextValue {
 
 export const ChatContext = createContext<ChatContextValue | undefined>(undefined);
 
+// Helper functions
+const getStorageItem = <T,>(key: string, fallback: T): T => {
+  try {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : fallback;
+  } catch {
+    return fallback;
+  }
+};
+
+const setStorageItem = (key: string, value: unknown) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    console.error(`Failed to save ${key} to localStorage:`, error);
+  }
+};
+
 export function ChatProvider({ children }: { children: React.ReactNode }) {
-  // all state from your App.tsx goes here
+  // State
+  const [user, setUser] = useState<User | null>(() => 
+    getStorageItem("chat_user", null)
+  );
 
-  const [user, setUser] = useState<User | null>(() => {
-    try {
-      const data = localStorage.getItem("chat_user");
-      return data ? JSON.parse(data) : null;
-    } catch {
-      return null;
-    }
-  });
+  const [users, setUsers] = useState<User[]>([]);
 
-  const [users] = useState<User[]>(MOCK_USERS);
-  const [conversations, setConversations] = useState<Conversation[]>(() => {
-    try {
-      const data = localStorage.getItem("chat_conversations");
-      return data ? JSON.parse(data) : MOCK_CONVERSATIONS;
-    } catch {
-      return MOCK_CONVERSATIONS;
-    }
-  });
+  const [conversations, setConversations] = useState<Conversation[]>(() =>
+    getStorageItem("chat_conversations", MOCK_CONVERSATIONS)
+  );
 
-  const [activeConvId, setActiveConvId] = useState(conversations[0]?.id || null);
+  const [activeConvId, setActiveConvId] = useState<string | number | null>(
+    () => conversations[0]?.id || null
+  );
+
   const [leftPaneSearch, setLeftPaneSearch] = useState("");
 
+  // Persist to localStorage
   useEffect(() => {
-    localStorage.setItem("chat_user", JSON.stringify(user));
+    setStorageItem("chat_user", user);
   }, [user]);
 
   useEffect(() => {
-    localStorage.setItem("chat_conversations", JSON.stringify(conversations));
+    setStorageItem("chat_conversations", conversations);
   }, [conversations]);
 
-  async function register(registerData: RegisterData) {
+
+  async function register({ name, email, password }: RegisterData) {
     try {
-      const response = await axios.post<ApiResponse>(BASE_URL+'/api/auth/register', registerData, {
-        withCredentials: true
+      const response = await axios.post<ApiResponse>(
+        `${BASE_URL}/api/auth/register`,
+        { name, email, password },
+        { withCredentials: true }
+      );
+
+      const data = successHandler(response.data, { notifyOnSuccess: true });
+      const userData = data.data;
+
+      setUser({
+        id: "me",
+        name: userData.email.split("@")[0],
+        email: userData.email,
+        avatar: "",
+        online: true
       });
-
-      const data: ApiResponse = successHandler(response.data, {
-        notifyOnSuccess: true
-      });
-      
-      const user = data.data;
-
-      setUser({ id: "me", name: user.email.split("@")[0], email: user.email, avatar: "", online: true });
-
     } catch (error) {
-      console.log(error);
+      console.error("Registration failed:", error);
+      throw error;
     }
   }
 
-  
-  async function login(loginData: LoginData) {
-
+  async function login({ email, password }: LoginData) {
     try {
-      const response = await axios.post<ApiResponse>(BASE_URL+"/api/auth/login", loginData, {
-        withCredentials: true,
+      const response = await axios.post<ApiResponse>(
+        `${BASE_URL}/api/auth/login`,
+        { email, password },
+        { withCredentials: true }
+      );
+
+      const data = successHandler(response.data, { notifyOnSuccess: true });
+      const userData = data.data;
+
+      setUser({
+        id: "me",
+        name: userData.email.split("@")[0],
+        email: userData.email,
+        avatar: "",
+        online: true
       });
-
-      const data: ApiResponse = successHandler(response.data, {
-        notifyOnSuccess: true,
-      });
-      console.log('data >> ', data);
-
-      const user = data.data;
-
-      setUser({ id: "me", name: user.email.split("@")[0], email: user.email, avatar: "", online: true });
-
     } catch (error) {
-      console.log('error >> ', error); 
+      console.error("Login failed:", error);
+      throw error;
     }
-
   }
 
   async function logout() {
     try {
-      const response = await axios.get(BASE_URL+"/api/auth/logout", {
+      await axios.get(`${BASE_URL}/api/auth/logout`, {
         withCredentials: true
       });
-
       setUser(null);
-      
+      setConversations([]);
+      setActiveConvId(null);
     } catch (error) {
-      console.log('errror > ', error);
+      console.error("Logout failed:", error);
+      throw error;
     }
   }
 
+  // Conversation Functions
   function selectConversation(id: string | number) {
-    setActiveConvId(id.toString());
+    setActiveConvId(id);
     setConversations((prev) =>
       prev.map((c) => (c.id === id ? { ...c, unread: 0 } : c))
     );
-
   }
 
   function sendMessage(text: string) {
-    if (!activeConvId || !text) return;
+    if (!activeConvId || !text.trim()) return;
+
     const now = formatTime();
+    const newMessage = { from: "me", text: text.trim(), time: now };
 
     setConversations((prev) =>
       prev.map((c) =>
         c.id === activeConvId
           ? {
               ...c,
-              lastMessage: text,
+              lastMessage: text.trim(),
               lastTime: now,
-              messages: [...c.messages, { from: "me", text, time: now }],
+              messages: [...c.messages, newMessage],
             }
           : c
       )
@@ -148,6 +169,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
   function startConversationWith(userId: string) {
     const existing = conversations.find((c) => c.participants.includes(userId));
+    
     if (existing) {
       selectConversation(existing.id);
       return;
@@ -167,38 +189,39 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   }
 
   function filteredConversations() {
-    const q = leftPaneSearch.toLowerCase().trim();
-    if (!q) return conversations;
+    const query = leftPaneSearch.toLowerCase().trim();
     
+    if (!query) return conversations;
+
     return conversations.filter((c) => {
-      const otherId = c.participants.find((p) => p !== "me");
-      const other = users.find((u) => u.id === otherId);
-      return other?.name.toLowerCase().includes(q);
+      const otherUserId = c.participants.find((p) => p !== "me");
+      const otherUser = users.find((u) => u.id === otherUserId);
+      return otherUser?.name.toLowerCase().includes(query);
     });
   }
 
+  const value: ChatContextValue = {
+    user,
+    users,
+    conversations,
+    activeConvId,
+    newMsg: "",
+
+    register,
+    login,
+    logout,
+
+    selectConversation,
+    sendMessage,
+    startConversationWith,
+
+    leftPaneSearch,
+    setLeftPaneSearch,
+    filteredConversations,
+  };
+
   return (
-    <ChatContext.Provider
-      value={{
-        user,
-        users,
-        conversations,
-        activeConvId,
-        newMsg: "",
-
-        register,
-        login,
-        logout,
-
-        selectConversation,
-        sendMessage,
-        startConversationWith,
-
-        leftPaneSearch,
-        setLeftPaneSearch,
-        filteredConversations,
-      }}
-    >
+    <ChatContext.Provider value={value}>
       {children}
     </ChatContext.Provider>
   );
@@ -206,6 +229,8 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
 export function useChat() {
   const ctx = useContext(ChatContext);
-  if (!ctx) throw new Error("useChat must be used inside ChatProvider");
+  if (!ctx) {
+    throw new Error("useChat must be used inside ChatProvider");
+  }
   return ctx;
 }

@@ -15,7 +15,7 @@ export default function ChatArea() {
     
     
     const activeConv = conversations.find((c) => c.id === activeConvId) || null;
-    const activeOther = activeConv ? users.find((u) => u.id === activeConv.participants.find((p) => p !== "me")) : null;
+    const activeOther = activeConv && false ? users.find((u) => u.id === activeConv!.participants.find((p) => p !== "me")) : null;
 
 
     return (

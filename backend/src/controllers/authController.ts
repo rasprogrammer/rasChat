@@ -40,7 +40,7 @@ export const registerUser = async (req: Request, res: Response) => {
       httpOnly: true,
       secure: false,
       sameSite: "lax",
-      maxAge: 15*60*1000,
+      maxAge: 60*60*1000,
     });
 
     return sendResponse(res, 201, true,
@@ -76,7 +76,7 @@ export const loginUser = async (req: Request, res: Response) => {
         httpOnly: true,
         secure: false,
         sameSite: "lax",
-        maxAge: 15*60*1000,
+        maxAge: 60*60*1000,
       });
       
       return sendResponse(res, 200, true, {

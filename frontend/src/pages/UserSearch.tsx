@@ -1,4 +1,12 @@
+import { useState, useEffect } from "react";
 import { useChat } from "../context/ChatContext";
+import axios from "axios";
+import type { ApiResponse } from "../requests/types";
+import { BASE_URL } from "../utils/urls";
+import { MOCK_USERS } from "../mock";
+import successHandler from "../requests/successHandler";
+import type { Users } from "../types/users";
+
 
 interface UserSearchProps {
     showUserSearch: boolean;
@@ -7,7 +15,32 @@ interface UserSearchProps {
 
 export default function UserSearch({showUserSearch, setShowUserSearch}: UserSearchProps) {
 
-    const { users, setLeftPaneSearch, leftPaneSearch, startConversationWith } = useChat();
+  const { setLeftPaneSearch, leftPaneSearch, startConversationWith } = useChat();
+
+  const [users, setUsers] = useState<Users[]>([]);
+  const [userSearch, setUserSearch] = useState("");
+
+  const avatarImageURL = "https://png.pngtree.com/png-vector/20220119/ourmid/pngtree-customer-service-icon-png-image_4231136.png";
+
+  // Load users on mount
+  useEffect(() => {
+    loadUsers();
+  }, [userSearch]);
+
+  // API Functions
+  async function loadUsers() {
+    try {
+      const response = await axios.get<ApiResponse>(`${BASE_URL}/api/users?search=${userSearch}`, {
+        withCredentials: true
+      });
+      const data = successHandler(response.data);
+      // console.log('data > ', data);
+      setUsers(data.data.users);
+    } catch (error) {
+      console.error("Failed to load users:", error);
+      setUsers(MOCK_USERS);
+    }
+  }
 
   return (
     <>
@@ -28,10 +61,10 @@ export default function UserSearch({showUserSearch, setShowUserSearch}: UserSear
               <input
                 placeholder="Search users"
                 className="w-full px-3 py-2 rounded-md border mb-3"
-                onChange={(e) => setLeftPaneSearch(e.target.value)}
+                onChange={(e) => setUserSearch(e.target.value)}
               />
               <div className="space-y-2 max-h-64 overflow-auto">
-                {users
+                {users && users
                   .filter(
                     (u) =>
                       u.id !== "me" &&
@@ -52,7 +85,7 @@ export default function UserSearch({showUserSearch, setShowUserSearch}: UserSear
                               : "bg-gray-200 text-gray-700"
                           }`}
                         >
-                          {u.avatar}
+                          {u.avatar ?? <img src={avatarImageURL} alt={u.name} />}
                         </div>
                         <div>
                           <div className="font-semibold">{u.name}</div>

@@ -11,7 +11,7 @@ export default function successHandler(
   response: ApiResponse,
   options: SuccessHandlerOptions = { notifyOnSuccess: false, notifyOnFailed: true }
 ): ApiResponse {
-  console.log('success Handler > ', response);
+  // console.log('success Handler > ', response);
   const { notify } = useNotify();
 
   const statusMessage = response.message || codeMessage[200];

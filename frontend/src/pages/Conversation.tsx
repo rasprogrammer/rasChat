@@ -81,6 +81,8 @@ export default function Conversations({
 
         <div className="flex-1 overflow-auto">
           {filteredConversations().map((c) => {
+            // console.log('conversation c > ', c);
+            return "null"; // TODO: remove after testing
             const otherId = c.participants.find((p) => p !== "me");
             const other = users.find((u) => u.id === otherId) || {
               name: "Unknown",
