@@ -3,6 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoute";
 import userRoutes from "./routes/userRoute";
+import conversationRoutes from "./routes/conversationRoute";
 
 // middlewares 
 import { authenticate } from "./middlewares/authMiddleware";
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth/", authRoutes);
 app.use("/api", authenticate, userRoutes);
+app.use("/api/conversations", authenticate, conversationRoutes);
 
 app.get("/api/profile", authenticate, (req, res) => {
   return res.send("Your Profile");

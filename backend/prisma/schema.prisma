@@ -1,19 +1,124 @@
 generator client {
   provider = "prisma-client-js"
-  
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "mysql" // or "postgresql"
   url      = env("DATABASE_URL")
 }
 
+//////////////////////////////////
+// ENUMS
+//////////////////////////////////
+
+enum ConversationType {
+  PRIVATE
+}
+
+enum MessageType {
+  TEXT
+  IMAGE
+  FILE
+}
+
+enum MessageStatusType {
+  SENT
+  DELIVERED
+  SEEN
+}
+
+//////////////////////////////////
+// MODELS
+//////////////////////////////////
+
 model User {
-  id        Int      @id @default(autoincrement()) // Primary Key
-  name      String
-  email     String   @unique(map: "User_email_key")
-  password  String
+  id          String   @id @default(uuid())
+  name        String
+  email       String   @unique
+  password    String
+  avatar      String?  
+  isOnline    Boolean  @default(false)
+  lastSeen    DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  sentMessages      Message[] @relation("SentMessages")
+  participants      ConversationParticipant[]
+  messageStatuses   MessageStatus[]
+
+  blockedBy         UserBlock[] @relation("BlockedBy")
+  blocking          UserBlock[] @relation("Blocking")
+}
+
+//////////////////////////////////
+
+model Conversation {
+  id          String   @id @default(uuid())
+  type        ConversationType
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  participants ConversationParticipant[]
+  messages     Message[]
+}
+
+//////////////////////////////////
+
+model ConversationParticipant {
+  id             String   @id @default(uuid())
+  conversationId String
+  userId         String
+  joinedAt       DateTime @default(now())
+
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  user           User         @relation(fields: [userId], references: [id])
+
+  @@unique([conversationId, userId])
+}
+
+//////////////////////////////////
+
+model Message {
+  id             String   @id @default(uuid())
+  conversationId String
+  senderId       String
+  type           MessageType
+  text           String?
+  fileUrl        String?
+  createdAt      DateTime @default(now())
+
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  sender         User         @relation("SentMessages", fields: [senderId], references: [id])
+  statuses       MessageStatus[]
+}
+
+//////////////////////////////////
+
+model MessageStatus {
+  id        String             @id @default(uuid())
+  messageId String
+  userId    String
+  status    MessageStatusType
+  updatedAt DateTime           @updatedAt
+
+  message   Message @relation(fields: [messageId], references: [id])
+  user      User    @relation(fields: [userId], references: [id])
+
+  @@unique([messageId, userId])
+}
+
+//////////////////////////////////
+
+model UserBlock {
+  id         String   @id @default(uuid())
+  blockerId  String
+  blockedId  String
   createdAt DateTime @default(now())
 
-  @@map("user") // Maps the Prisma model "User" to the MySQL table "user"
+  blocker   User @relation("Blocking", fields: [blockerId], references: [id])
+  blocked   User @relation("BlockedBy", fields: [blockedId], references: [id])
+
+  @@unique([blockerId, blockedId])
 }

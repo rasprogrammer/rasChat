@@ -30,7 +30,7 @@ export default function UserSearch({showUserSearch, setShowUserSearch}: UserSear
   // API Functions
   async function loadUsers() {
     try {
-      const response = await axios.get<ApiResponse>(`${BASE_URL}/api/users?search=${userSearch}`, {
+      const response = await axios.get<ApiResponse>(`${BASE_URL}/users?search=${userSearch}`, {
         withCredentials: true
       });
       const data = successHandler(response.data);

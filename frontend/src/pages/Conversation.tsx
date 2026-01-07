@@ -12,32 +12,40 @@ interface ConversationsProps {
   logout: () => void;
 }
 
+interface ConversationResponse {
+
+}
+
 export default function Conversations({
   activeConvId,
   setShowUserSearch,
   logout,
 }: ConversationsProps) {
 
-  const [profile, setProfile] = useState({});
-
-  useEffect(() => {
-    try {
-      const response = axios.get<ApiResponse>(BASE_URL+"/api/profile", {
-        withCredentials: true
-      });
-
-      console.log('response > ', response);
-    } catch (error) {
-      console.log('error > ', error);
-    }
-  }, []);
-
-
-  const { user, users, conversations, filteredConversations, leftPaneSearch, setLeftPaneSearch, selectConversation } = useChat();
+  const { user, users, filteredConversations, selectConversation } = useChat();
 
   if (!user) {
     return <><p>User not found</p></>;
   }
+
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+
+  async function loadConversations() {
+    try {
+      const response = await axios.get<ApiResponse>(BASE_URL+"/conversations", {
+        withCredentials: true,
+      });
+
+      console.log('response.data > ', response.data);
+
+    } catch (error) {
+      console.error("Error loading conversations:", error);
+    }
+  }
+
+  useEffect(() => {
+    loadConversations();
+  }, []);
 
   return (
     <>
@@ -72,8 +80,8 @@ export default function Conversations({
         {/* === Search Conversations === */}
         <div className="p-3">
           <input
-            value={leftPaneSearch}
-            onChange={(e) => setLeftPaneSearch(e.target.value)}
+            value=""
+            onChange={(e) => ""}
             placeholder="Search conversations"
             className="w-full px-3 py-2 rounded-md border"
           />

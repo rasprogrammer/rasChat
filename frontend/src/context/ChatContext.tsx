@@ -80,7 +80,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   async function register({ name, email, password }: RegisterData) {
     try {
       const response = await axios.post<ApiResponse>(
-        `${BASE_URL}/api/auth/register`,
+        `${BASE_URL}/auth/register`,
         { name, email, password },
         { withCredentials: true }
       );
@@ -104,7 +104,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   async function login({ email, password }: LoginData) {
     try {
       const response = await axios.post<ApiResponse>(
-        `${BASE_URL}/api/auth/login`,
+        `${BASE_URL}/auth/login`,
         { email, password },
         { withCredentials: true }
       );
@@ -127,7 +127,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
   async function logout() {
     try {
-      await axios.get(`${BASE_URL}/api/auth/logout`, {
+      await axios.get(`${BASE_URL}/auth/logout`, {
         withCredentials: true
       });
       setUser(null);
