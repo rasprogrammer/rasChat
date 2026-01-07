@@ -2,11 +2,10 @@ import { useState, useEffect } from "react";
 import { useChat } from "../context/ChatContext";
 import axios from "axios";
 import type { ApiResponse } from "../requests/types";
-import { BASE_URL } from "../utils/urls";
+import { BASE_URL, avatarDefaultImageURL } from "../utils/urls";
 import { MOCK_USERS } from "../mock";
 import successHandler from "../requests/successHandler";
 import type { Users } from "../types/users";
-
 
 interface UserSearchProps {
     showUserSearch: boolean;
@@ -20,7 +19,7 @@ export default function UserSearch({showUserSearch, setShowUserSearch}: UserSear
   const [users, setUsers] = useState<Users[]>([]);
   const [userSearch, setUserSearch] = useState("");
 
-  const avatarImageURL = "https://png.pngtree.com/png-vector/20220119/ourmid/pngtree-customer-service-icon-png-image_4231136.png";
+  const avatarImageURL = avatarDefaultImageURL;
 
   // Load users on mount
   useEffect(() => {

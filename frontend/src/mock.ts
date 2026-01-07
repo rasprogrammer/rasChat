@@ -1,3 +1,4 @@
+import type { messageStatus, Message, Conversation } from "./types/conversationType";
 import type { User } from "./types/types";
 
 export const MOCK_USERS: User[] = [
@@ -7,28 +8,84 @@ export const MOCK_USERS: User[] = [
   { id: "u4", name: "Rohan Mehta", avatar: "RM", online: false, lastSeen: "2025-12-09 10:11" },
 ];
 
-export const MOCK_CONVERSATIONS = [
+export const MOCK_CONVERSATIONS: Conversation[] = [
   {
-    id: "c1",
-    participants: ["me", "u1"],
-    lastMessage: "Hey, are you joining today's call?",
-    lastTime: "10:30 AM",
-    unread: 2,
+    conversationId: 1,
+    userId: 22,
+    name: 'Rajiv',
+    avatar: '',
+    isOnline: true,
+    lastSeen: '3:03am',
+    lastMessage: 'Okay',
+    lastTime: '7:04pm',
+    unread: null,
+    lastMessageStatus: 'SEEN',
     messages: [
-      { from: "u1", text: "Hey!", time: "10:00 AM" },
-      { from: "me", text: "Hi Asha, how are you?", time: "10:05 AM" },
-      { from: "u1", text: "I'm good. Are we meeting today?", time: "10:30 AM" },
-    ],
+      {
+        senderId: 22,
+        messageId: 1,
+        text: "Hello",
+        messageTime: '7:01pm',
+        messageStatus: 'DELIVERED'
+      },
+      {
+        senderId: 22,
+        messageId: 1,
+        text: "How are you ?",
+        messageTime: '7:01pm',
+        messageStatus: 'DELIVERED'
+      },
+      {
+        senderId: 1,
+        messageId: 1,
+        text: "Hello",
+        messageTime: '7:01pm',
+        messageStatus: 'DELIVERED'
+      }
+    ]
   },
   {
-    id: "c2",
-    participants: ["me", "u3"],
-    lastMessage: "Sent the files.",
-    lastTime: "Yesterday",
-    unread: 0,
-    messages: [
-      { from: "u3", text: "I'll send it by evening.", time: "Yesterday" },
-      { from: "me", text: "Thanks!", time: "Yesterday" },
-    ],
+    conversationId: 2,
+    userId: 24,
+    name: 'Amit',
+    avatar: '',
+    isOnline: true,
+    lastSeen: '3:03am',
+    lastMessage: 'Hello',
+    lastTime: '3:03pm',
+    unread: null,
+    lastMessageStatus: 'SEEN',
+    messages: []
   },
+  {
+    conversationId: 3,
+    userId: 21,
+    name: 'Sumit',
+    avatar: '',
+    isOnline: true,
+    lastSeen: '3:03am',
+    lastMessage: 'How are you ?',
+    lastTime: '7:04pm',
+    unread: null,
+    lastMessageStatus: 'SEEN',
+    messages: []
+  },
+  {
+    conversationId: 4,
+    userId: 25,
+    name: 'Ravi',
+    avatar: '',
+    isOnline: false,
+    lastSeen: '3:03am',
+    lastMessage: 'Hi',
+    lastTime: '7:02pm',
+    unread: null,
+    lastMessageStatus: 'SEEN',
+    messages: []
+    // messages : [
+    //   {
+        
+    //   }
+    // ]
+  }
 ];

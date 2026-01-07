@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import type { Conversation, LoginData, RegisterData, User } from "./../types/types";
+import type {LoginData, RegisterData, User } from "./../types/types";
+import type { Conversation } from "../types/conversationType";
 import { BASE_URL } from "../utils/urls";
 import { uid } from "../utils/uid";
 import { formatTime } from "../utils/time";
@@ -57,12 +58,11 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
   const [users, setUsers] = useState<User[]>([]);
 
-  const [conversations, setConversations] = useState<Conversation[]>(() =>
-    getStorageItem("chat_conversations", MOCK_CONVERSATIONS)
-  );
+  const [conversations, setConversations] = useState<Conversation[]>(MOCK_CONVERSATIONS);
 
   const [activeConvId, setActiveConvId] = useState<string | number | null>(
-    () => conversations[0]?.id || null
+    // () => conversations[0]?.conversationId || 
+    null
   );
 
   const [leftPaneSearch, setLeftPaneSearch] = useState("");
@@ -142,9 +142,9 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   // Conversation Functions
   function selectConversation(id: string | number) {
     setActiveConvId(id);
-    setConversations((prev) =>
-      prev.map((c) => (c.id === id ? { ...c, unread: 0 } : c))
-    );
+    // setConversations((prev) =>
+    //   prev.map((c) => (c.conversationId === id ? { ...c, unread: 0 } : c))
+    // );
   }
 
   function sendMessage(text: string) {
@@ -155,12 +155,11 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
 
     setConversations((prev) =>
       prev.map((c) =>
-        c.id === activeConvId
+        c.conversationId === activeConvId
           ? {
               ...c,
               lastMessage: text.trim(),
               lastTime: now,
-              messages: [...c.messages, newMessage],
             }
           : c
       )
@@ -168,24 +167,24 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   }
 
   function startConversationWith(userId: string) {
-    const existing = conversations.find((c) => c.participants.includes(userId));
+    // const existing = conversations.find((c) => c.participants.includes(userId));
     
-    if (existing) {
-      selectConversation(existing.id);
-      return;
-    }
+    // if (existing) {
+    //   selectConversation(existing.id);
+    //   return;
+    // }
 
-    const newConv: Conversation = {
-      id: uid(),
-      participants: ["me", userId],
-      lastMessage: "",
-      lastTime: "",
-      unread: 0,
-      messages: [],
-    };
+    // const newConv: Conversation = {
+    //   id: uid(),
+    //   participants: ["me", userId],
+    //   lastMessage: "",
+    //   lastTime: "",
+    //   unread: 0,
+    //   messages: [],
+    // };
 
-    setConversations((prev) => [newConv, ...prev]);
-    setActiveConvId(newConv.id);
+    // setConversations((prev) => [newConv, ...prev]);
+    // setActiveConvId(newConv.id);
   }
 
   function filteredConversations() {
@@ -194,9 +193,9 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
     if (!query) return conversations;
 
     return conversations.filter((c) => {
-      const otherUserId = c.participants.find((p) => p !== "me");
-      const otherUser = users.find((u) => u.id === otherUserId);
-      return otherUser?.name.toLowerCase().includes(query);
+      // const otherUserId = c.participants.find((p) => p !== "me");
+      // const otherUser = users.find((u) => u.id === otherUserId);
+      // return otherUser?.name.toLowerCase().includes(query);
     });
   }
 

@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+// import type { User, Conversation } from "../types/types";
+// import axios from "axios";
+// import type { ApiResponse } from "../requests/types";
+// import { BASE_URL } from "../utils/urls";
+
 import { useChat } from "../context/ChatContext";
-import type { User, Conversation } from "../types/types";
-import axios from "axios";
-import type { ApiResponse } from "../requests/types";
-import { BASE_URL } from "../utils/urls";
+import { avatarDefaultImageURL } from "../utils/urls";
 
 interface ConversationsProps {
   activeConvId: number | string | null;
@@ -12,40 +14,19 @@ interface ConversationsProps {
   logout: () => void;
 }
 
-interface ConversationResponse {
-
-}
-
 export default function Conversations({
   activeConvId,
   setShowUserSearch,
   logout,
 }: ConversationsProps) {
 
-  const { user, users, filteredConversations, selectConversation } = useChat();
+  const { user, users, conversations, selectConversation } = useChat();
+
+  console.log('conversations > ', conversations);
 
   if (!user) {
     return <><p>User not found</p></>;
   }
-
-  const [conversations, setConversations] = useState<Conversation[]>([]);
-
-  async function loadConversations() {
-    try {
-      const response = await axios.get<ApiResponse>(BASE_URL+"/conversations", {
-        withCredentials: true,
-      });
-
-      console.log('response.data > ', response.data);
-
-    } catch (error) {
-      console.error("Error loading conversations:", error);
-    }
-  }
-
-  useEffect(() => {
-    loadConversations();
-  }, []);
 
   return (
     <>
@@ -88,37 +69,30 @@ export default function Conversations({
         </div>
 
         <div className="flex-1 overflow-auto">
-          {filteredConversations().map((c) => {
-            // console.log('conversation c > ', c);
-            return "null"; // TODO: remove after testing
-            const otherId = c.participants.find((p) => p !== "me");
-            const other = users.find((u) => u.id === otherId) || {
-              name: "Unknown",
-              avatar: "?",
-              online: "",
-            };
-            
-            const active = c.id === activeConvId;
+          {conversations.map((c) => {
+            c.avatar = avatarDefaultImageURL;
             return (
               <div
-                key={c.id}
-                onClick={() => selectConversation(c.id)}
+                key={c.conversationId}
+                onClick={() => selectConversation(c.conversationId)}
                 className={`p-3 flex items-center gap-3 cursor-pointer hover:bg-gray-50 ${
-                  active ? "bg-gray-50" : ""
+                  // active ? "bg-gray-50" : ""
+                  ""
                 }`}
               >
                 <div
                   className={`w-12 h-12 rounded-full flex items-center justify-center font-semibold ${
-                    other.online
-                      ? "bg-green-400 text-white"
-                      : "bg-gray-200 text-gray-700"
+                    // other.online
+                    //   ? "bg-green-400 text-white"
+                    //   : "bg-gray-200 text-gray-700"
+                    "bg-gray-200 text-gray-700"
                   }`}
                 >
-                  {other.avatar}
+                  <img src={c.avatar} />
                 </div>
                 <div className="flex-1">
                   <div className="flex justify-between items-center">
-                    <div className="font-semibold text-sm">{other.name}</div>
+                    <div className="font-semibold text-sm">{c.name}</div>
                     <div className="text-xs text-gray-400">{c.lastTime}</div>
                   </div>
                   <div className="text-xs text-gray-500 truncate">
