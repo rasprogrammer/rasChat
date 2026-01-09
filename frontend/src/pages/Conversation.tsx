@@ -8,14 +8,11 @@ import { useChat } from "../context/ChatContext";
 import { avatarDefaultImageURL } from "../utils/urls";
 
 interface ConversationsProps {
-  activeConvId: number | string | null;
   setShowUserSearch: (value: boolean) => void;
-
   logout: () => void;
 }
 
 export default function Conversations({
-  activeConvId,
   setShowUserSearch,
   logout,
 }: ConversationsProps) {

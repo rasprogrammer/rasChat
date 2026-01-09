@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import type {LoginData, RegisterData, User } from "./../types/types";
-import type { Conversation } from "../types/conversationType";
+import type { Conversation, Message } from "../types/conversationType";
 import { BASE_URL } from "../utils/urls";
 import { uid } from "../utils/uid";
 import { formatTime } from "../utils/time";
@@ -148,16 +148,23 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
   }
 
   function sendMessage(text: string) {
-    if (!activeConvId || !text.trim()) return;
+    if (!activeConvId || !text.trim() || !user) return;
 
     const now = formatTime();
-    const newMessage = { from: "me", text: text.trim(), time: now };
+    const newMessage: Message = {
+      senderId: parseInt(user.id),
+      messageId: Date.now(),
+      text: text.trim(),
+      messageTime: now,
+      messageStatus: "SENT",
+    };
 
     setConversations((prev) =>
       prev.map((c) =>
         c.conversationId === activeConvId
           ? {
               ...c,
+              messages: [...c.messages, newMessage],
               lastMessage: text.trim(),
               lastTime: now,
             }

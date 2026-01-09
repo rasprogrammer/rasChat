@@ -7,6 +7,11 @@ export default function ChatArea() {
     const [newMsg, setNewMsg] = useState("");
     const {activeConvId, conversations, user, users, sendMessage} = useChat();
 
+    const sendMessageToUser = () => {
+      sendMessage(newMsg);
+      setNewMsg("");
+    };
+
     if (!user) {
       return <>Please login</>;
     }
@@ -98,12 +103,12 @@ export default function ChatArea() {
                 <input
                   value={newMsg}
                   onChange={(e) => setNewMsg(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && sendMessage(newMsg)}
+                  onKeyDown={(e) => e.key === "Enter" && sendMessageToUser()}
                   placeholder="Type a message"
                   className="flex-1 px-3 py-2 rounded-full border"
                 />
                 <button
-                  onClick={() => sendMessage(newMsg)}
+                  onClick={() => sendMessageToUser()}
                   className="px-4 py-2 rounded-full bg-green-500 text-white font-semibold"
                 >
                   Send
