@@ -1,22 +1,22 @@
 export type messageStatus = 'SEEN' | 'DELIVERED' | 'SENT';
 
 export interface Conversation {
-    conversationId: number;
-    userId: number;
+    conversationId: number | string;
+    userId: number | string;
     name: string;
     avatar: string;
-    lastSeen: string;
-    lastMessage: string;
+    lastSeen: string | null;
+    lastMessage: string | null;
     isOnline: boolean;
-    lastTime: string;
+    lastTime: string | null;
     unread: number | null;
-    lastMessageStatus: messageStatus;
+    lastMessageStatus: messageStatus | null;
     messages: Message[];
 }
 
 export interface Message {
-    senderId: number;
-    messageId: number;
+    senderId: string;
+    messageId: string;
     text: string;
     messageTime: string;
     messageStatus: messageStatus;

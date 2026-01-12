@@ -97,8 +97,15 @@ export default function UserSearch({showUserSearch, setShowUserSearch}: UserSear
                       </div>
                       <div>
                         <button
-                          onClick={() => startConversationWith(u.id)}
-                          className="px-3 py-1 rounded-md bg-green-500 text-white"
+                          onClick={async () => {
+                            try {
+                              await startConversationWith(u.id);
+                              setShowUserSearch(false);
+                            } catch (error) {
+                              console.error("Failed to start conversation:", error);
+                            }
+                          }}
+                          className="px-3 py-1 rounded-md bg-green-500 text-white hover:bg-green-600"
                         >
                           Chat
                         </button>

@@ -1,31 +1,37 @@
 import { useRef, useEffect, useState } from "react";
 import { useChat } from "../context/ChatContext";
+import type { Message } from "../types/conversationType";
 
 export default function ChatArea() {
 
     const messageListRef = useRef<HTMLDivElement>(null);
     const [newMsg, setNewMsg] = useState("");
-    const {activeConvId, conversations, user, users, sendMessage} = useChat();
-
-    const sendMessageToUser = () => {
-      sendMessage(newMsg);
-      setNewMsg("");
-    };
+    const {activeConvId, conversations, user, sendMessage, messages, setMessages} = useChat();
 
     if (!user) {
       return <>Please login</>;
     }
+
+    const sendMessageToUser = () => {
+      if (newMsg.trim()) {
+        sendMessage(newMsg);
+        setNewMsg("");
+      }
+    };
+
     
     useEffect(() => {
-      // scroll to bottom when active conversation or messages change
+      // scroll to bottom when messages change
       const el = messageListRef.current;
-      if (el) el.scrollTop = el.scrollHeight;
-    }, [activeConvId, conversations]);
+      if (el) {
+        setTimeout(() => {
+          el.scrollTop = el.scrollHeight;
+        }, 100);
+      }
+    }, [messages]);
     
     const activeConv = conversations.find((c) => c.conversationId === activeConvId) || null;
-    console.log('activeConv > ', activeConv);
-    
-    const userId = parseInt(user.id);
+    const userId = String(user.id);
 
     return (
       <>
@@ -55,7 +61,9 @@ export default function ChatArea() {
                   <div className="text-xs text-gray-500">
                     {activeConv?.isOnline
                       ? "online"
-                      : `last seen ${activeConv?.lastSeen || "some time"}`}
+                      : activeConv?.lastSeen 
+                        ? `last seen ${new Date(activeConv.lastSeen).toLocaleString()}`
+                        : "offline"}
                   </div>
                 </div>
                 {/* <div className="text-sm text-gray-500">{activeConv.lastTime}</div> */}
@@ -63,12 +71,12 @@ export default function ChatArea() {
 
               <div className="flex-1 overflow-auto p-4" ref={messageListRef}>
                 <div className="space-y-3 max-w-5xl">
-                  {activeConv.messages.length === 0 ? (
+                  {messages.length === 0 ? (
                     <div className="text-center text-gray-400 mt-12">
                       No messages yet. Say hello 👋
                     </div>
                   ) : (
-                    activeConv.messages.map((m, i) => (
+                    messages.map((m, i) => (
                       <div
                         key={i}
                         className={`flex ${
@@ -84,13 +92,18 @@ export default function ChatArea() {
                         >
                           <div className="text-sm leading-relaxed">{m.text}</div>
                           <div
-                            className={`text-xs mt-2 ${
+                            className={`text-xs mt-2 flex items-center gap-2 ${
                               m.senderId === userId
                                 ? "opacity-80 text-white/90"
                                 : "text-gray-400"
                             }`}
                           >
-                            {m.messageTime}
+                            <span>{new Date(m.messageTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                            {m.senderId === userId && (
+                              <span className="text-xs">
+                                {m.messageStatus === "SEEN" ? "✓✓" : m.messageStatus === "DELIVERED" ? "✓✓" : "✓"}
+                              </span>
+                            )}
                           </div>
                         </div>
                       </div>

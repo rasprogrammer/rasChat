@@ -17,9 +17,9 @@ export default function Conversations({
   logout,
 }: ConversationsProps) {
 
-  const { user, users, conversations, selectConversation } = useChat();
+  const { user, users, conversations, selectConversation, leftPaneSearch, setLeftPaneSearch, filteredConversations, activeConvId } = useChat();
 
-  console.log('conversations > ', conversations);
+  // console.log('conversations > ', conversations);
 
   if (!user) {
     return <><p>User not found</p></>;
@@ -58,39 +58,39 @@ export default function Conversations({
         {/* === Search Conversations === */}
         <div className="p-3">
           <input
-            value=""
-            onChange={(e) => ""}
+            value={leftPaneSearch}
+            onChange={(e) => setLeftPaneSearch(e.target.value)}
             placeholder="Search conversations"
             className="w-full px-3 py-2 rounded-md border"
           />
         </div>
 
         <div className="flex-1 overflow-auto">
-          {conversations.map((c) => {
+          {filteredConversations().map((c) => {
             c.avatar = avatarDefaultImageURL;
             return (
               <div
                 key={c.conversationId}
                 onClick={() => selectConversation(c.conversationId)}
                 className={`p-3 flex items-center gap-3 cursor-pointer hover:bg-gray-50 ${
-                  // active ? "bg-gray-50" : ""
-                  ""
+                  String(activeConvId) === String(c.conversationId) ? "bg-gray-50" : ""
                 }`}
               >
                 <div
-                  className={`w-12 h-12 rounded-full flex items-center justify-center font-semibold ${
-                    // other.online
-                    //   ? "bg-green-400 text-white"
-                    //   : "bg-gray-200 text-gray-700"
-                    "bg-gray-200 text-gray-700"
+                  className={`w-12 h-12 rounded-full flex items-center justify-center font-semibold overflow-hidden ${
+                    c.isOnline
+                      ? "bg-green-400 text-white"
+                      : "bg-gray-200 text-gray-700"
                   }`}
                 >
-                  <img src={c.avatar} />
+                  <img src={c.avatar || avatarDefaultImageURL} alt={c.name} className="w-full h-full object-cover" />
                 </div>
                 <div className="flex-1">
                   <div className="flex justify-between items-center">
                     <div className="font-semibold text-sm">{c.name}</div>
-                    <div className="text-xs text-gray-400">{c.lastTime}</div>
+                    <div className="text-xs text-gray-400">
+                    {c.lastTime ? new Date(c.lastTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}
+                  </div>
                   </div>
                   <div className="text-xs text-gray-500 truncate">
                     {c.lastMessage || "Say hi!"}
