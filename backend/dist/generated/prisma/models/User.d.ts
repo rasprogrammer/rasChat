@@ -1,0 +1,1827 @@
+import type * as runtime from "@prisma/client/runtime/client";
+import type * as Prisma from "../internal/prismaNamespace.js";
+/**
+ * Model User
+ *
+ */
+export type UserModel = runtime.Types.Result.DefaultSelection<Prisma.$UserPayload>;
+export type AggregateUser = {
+    _count: UserCountAggregateOutputType | null;
+    _min: UserMinAggregateOutputType | null;
+    _max: UserMaxAggregateOutputType | null;
+};
+export type UserMinAggregateOutputType = {
+    id: string | null;
+    name: string | null;
+    email: string | null;
+    password: string | null;
+    avatar: string | null;
+    isOnline: boolean | null;
+    lastSeen: Date | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+};
+export type UserMaxAggregateOutputType = {
+    id: string | null;
+    name: string | null;
+    email: string | null;
+    password: string | null;
+    avatar: string | null;
+    isOnline: boolean | null;
+    lastSeen: Date | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+};
+export type UserCountAggregateOutputType = {
+    id: number;
+    name: number;
+    email: number;
+    password: number;
+    avatar: number;
+    isOnline: number;
+    lastSeen: number;
+    createdAt: number;
+    updatedAt: number;
+    _all: number;
+};
+export type UserMinAggregateInputType = {
+    id?: true;
+    name?: true;
+    email?: true;
+    password?: true;
+    avatar?: true;
+    isOnline?: true;
+    lastSeen?: true;
+    createdAt?: true;
+    updatedAt?: true;
+};
+export type UserMaxAggregateInputType = {
+    id?: true;
+    name?: true;
+    email?: true;
+    password?: true;
+    avatar?: true;
+    isOnline?: true;
+    lastSeen?: true;
+    createdAt?: true;
+    updatedAt?: true;
+};
+export type UserCountAggregateInputType = {
+    id?: true;
+    name?: true;
+    email?: true;
+    password?: true;
+    avatar?: true;
+    isOnline?: true;
+    lastSeen?: true;
+    createdAt?: true;
+    updatedAt?: true;
+    _all?: true;
+};
+export type UserAggregateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which User to aggregate.
+     */
+    where?: Prisma.UserWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: Prisma.UserOrderByWithRelationInput | Prisma.UserOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: Prisma.UserWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Users.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned Users
+    **/
+    _count?: true | UserCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserMaxAggregateInputType;
+};
+export type GetUserAggregateType<T extends UserAggregateArgs> = {
+    [P in keyof T & keyof AggregateUser]: P extends '_count' | 'count' ? T[P] extends true ? number : Prisma.GetScalarType<T[P], AggregateUser[P]> : Prisma.GetScalarType<T[P], AggregateUser[P]>;
+};
+export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.UserWhereInput;
+    orderBy?: Prisma.UserOrderByWithAggregationInput | Prisma.UserOrderByWithAggregationInput[];
+    by: Prisma.UserScalarFieldEnum[] | Prisma.UserScalarFieldEnum;
+    having?: Prisma.UserScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: UserCountAggregateInputType | true;
+    _min?: UserMinAggregateInputType;
+    _max?: UserMaxAggregateInputType;
+};
+export type UserGroupByOutputType = {
+    id: string;
+    name: string;
+    email: string;
+    password: string;
+    avatar: string | null;
+    isOnline: boolean;
+    lastSeen: Date | null;
+    createdAt: Date;
+    updatedAt: Date;
+    _count: UserCountAggregateOutputType | null;
+    _min: UserMinAggregateOutputType | null;
+    _max: UserMaxAggregateOutputType | null;
+};
+export type GetUserGroupByPayload<T extends UserGroupByArgs> = Prisma.PrismaPromise<Array<Prisma.PickEnumerable<UserGroupByOutputType, T['by']> & {
+    [P in ((keyof T) & (keyof UserGroupByOutputType))]: P extends '_count' ? T[P] extends boolean ? number : Prisma.GetScalarType<T[P], UserGroupByOutputType[P]> : Prisma.GetScalarType<T[P], UserGroupByOutputType[P]>;
+}>>;
+export type UserWhereInput = {
+    AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[];
+    OR?: Prisma.UserWhereInput[];
+    NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[];
+    id?: Prisma.StringFilter<"User"> | string;
+    name?: Prisma.StringFilter<"User"> | string;
+    email?: Prisma.StringFilter<"User"> | string;
+    password?: Prisma.StringFilter<"User"> | string;
+    avatar?: Prisma.StringNullableFilter<"User"> | string | null;
+    isOnline?: Prisma.BoolFilter<"User"> | boolean;
+    lastSeen?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null;
+    createdAt?: Prisma.DateTimeFilter<"User"> | Date | string;
+    updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string;
+    sentMessages?: Prisma.MessageListRelationFilter;
+    participants?: Prisma.ConversationParticipantListRelationFilter;
+    blockedBy?: Prisma.UserBlockListRelationFilter;
+    blocking?: Prisma.UserBlockListRelationFilter;
+    messageReactions?: Prisma.MessageReactionListRelationFilter;
+};
+export type UserOrderByWithRelationInput = {
+    id?: Prisma.SortOrder;
+    name?: Prisma.SortOrder;
+    email?: Prisma.SortOrder;
+    password?: Prisma.SortOrder;
+    avatar?: Prisma.SortOrderInput | Prisma.SortOrder;
+    isOnline?: Prisma.SortOrder;
+    lastSeen?: Prisma.SortOrderInput | Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+    sentMessages?: Prisma.MessageOrderByRelationAggregateInput;
+    participants?: Prisma.ConversationParticipantOrderByRelationAggregateInput;
+    blockedBy?: Prisma.UserBlockOrderByRelationAggregateInput;
+    blocking?: Prisma.UserBlockOrderByRelationAggregateInput;
+    messageReactions?: Prisma.MessageReactionOrderByRelationAggregateInput;
+};
+export type UserWhereUniqueInput = Prisma.AtLeast<{
+    id?: string;
+    email?: string;
+    AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[];
+    OR?: Prisma.UserWhereInput[];
+    NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[];
+    name?: Prisma.StringFilter<"User"> | string;
+    password?: Prisma.StringFilter<"User"> | string;
+    avatar?: Prisma.StringNullableFilter<"User"> | string | null;
+    isOnline?: Prisma.BoolFilter<"User"> | boolean;
+    lastSeen?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null;
+    createdAt?: Prisma.DateTimeFilter<"User"> | Date | string;
+    updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string;
+    sentMessages?: Prisma.MessageListRelationFilter;
+    participants?: Prisma.ConversationParticipantListRelationFilter;
+    blockedBy?: Prisma.UserBlockListRelationFilter;
+    blocking?: Prisma.UserBlockListRelationFilter;
+    messageReactions?: Prisma.MessageReactionListRelationFilter;
+}, "id" | "email">;
+export type UserOrderByWithAggregationInput = {
+    id?: Prisma.SortOrder;
+    name?: Prisma.SortOrder;
+    email?: Prisma.SortOrder;
+    password?: Prisma.SortOrder;
+    avatar?: Prisma.SortOrderInput | Prisma.SortOrder;
+    isOnline?: Prisma.SortOrder;
+    lastSeen?: Prisma.SortOrderInput | Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+    _count?: Prisma.UserCountOrderByAggregateInput;
+    _max?: Prisma.UserMaxOrderByAggregateInput;
+    _min?: Prisma.UserMinOrderByAggregateInput;
+};
+export type UserScalarWhereWithAggregatesInput = {
+    AND?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[];
+    OR?: Prisma.UserScalarWhereWithAggregatesInput[];
+    NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[];
+    id?: Prisma.StringWithAggregatesFilter<"User"> | string;
+    name?: Prisma.StringWithAggregatesFilter<"User"> | string;
+    email?: Prisma.StringWithAggregatesFilter<"User"> | string;
+    password?: Prisma.StringWithAggregatesFilter<"User"> | string;
+    avatar?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null;
+    isOnline?: Prisma.BoolWithAggregatesFilter<"User"> | boolean;
+    lastSeen?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null;
+    createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string;
+    updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string;
+};
+export type UserCreateInput = {
+    id?: string;
+    name: string;
+    email: string;
+    password: string;
+    avatar?: string | null;
+    isOnline?: boolean;
+    lastSeen?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput;
+    participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput;
+    blockedBy?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput;
+    blocking?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput;
+    messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateInput = {
+    id?: string;
+    name: string;
+    email: string;
+    password: string;
+    avatar?: string | null;
+    isOnline?: boolean;
+    lastSeen?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput;
+    participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput;
+    blockedBy?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput;
+    blocking?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput;
+    messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserUpdateInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    lastSeen?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput;
+    participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput;
+    blockedBy?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput;
+    blocking?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput;
+    messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    lastSeen?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput;
+    participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput;
+    blockedBy?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput;
+    blocking?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput;
+    messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput;
+};
+export type UserCreateManyInput = {
+    id?: string;
+    name: string;
+    email: string;
+    password: string;
+    avatar?: string | null;
+    isOnline?: boolean;
+    lastSeen?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+};
+export type UserUpdateManyMutationInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    lastSeen?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type UserUncheckedUpdateManyInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    lastSeen?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+};
+export type UserCountOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    name?: Prisma.SortOrder;
+    email?: Prisma.SortOrder;
+    password?: Prisma.SortOrder;
+    avatar?: Prisma.SortOrder;
+    isOnline?: Prisma.SortOrder;
+    lastSeen?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+};
+export type UserMaxOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    name?: Prisma.SortOrder;
+    email?: Prisma.SortOrder;
+    password?: Prisma.SortOrder;
+    avatar?: Prisma.SortOrder;
+    isOnline?: Prisma.SortOrder;
+    lastSeen?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+};
+export type UserMinOrderByAggregateInput = {
+    id?: Prisma.SortOrder;
+    name?: Prisma.SortOrder;
+    email?: Prisma.SortOrder;
+    password?: Prisma.SortOrder;
+    avatar?: Prisma.SortOrder;
+    isOnline?: Prisma.SortOrder;
+    lastSeen?: Prisma.SortOrder;
+    createdAt?: Prisma.SortOrder;
+    updatedAt?: Prisma.SortOrder;
+};
+export type UserScalarRelationFilter = {
+    is?: Prisma.UserWhereInput;
+    isNot?: Prisma.UserWhereInput;
+};
+export type StringFieldUpdateOperationsInput = {
+    set?: string;
+};
+export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null;
+};
+export type BoolFieldUpdateOperationsInput = {
+    set?: boolean;
+};
+export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null;
+};
+export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string;
+};
+export type UserCreateNestedOneWithoutParticipantsInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutParticipantsInput, Prisma.UserUncheckedCreateWithoutParticipantsInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutParticipantsInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutParticipantsNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutParticipantsInput, Prisma.UserUncheckedCreateWithoutParticipantsInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutParticipantsInput;
+    upsert?: Prisma.UserUpsertWithoutParticipantsInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutParticipantsInput, Prisma.UserUpdateWithoutParticipantsInput>, Prisma.UserUncheckedUpdateWithoutParticipantsInput>;
+};
+export type UserCreateNestedOneWithoutSentMessagesInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessagesInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutSentMessagesNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentMessagesInput;
+    upsert?: Prisma.UserUpsertWithoutSentMessagesInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentMessagesInput, Prisma.UserUpdateWithoutSentMessagesInput>, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>;
+};
+export type UserCreateNestedOneWithoutMessageReactionsInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutMessageReactionsInput, Prisma.UserUncheckedCreateWithoutMessageReactionsInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessageReactionsInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutMessageReactionsNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutMessageReactionsInput, Prisma.UserUncheckedCreateWithoutMessageReactionsInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessageReactionsInput;
+    upsert?: Prisma.UserUpsertWithoutMessageReactionsInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessageReactionsInput, Prisma.UserUpdateWithoutMessageReactionsInput>, Prisma.UserUncheckedUpdateWithoutMessageReactionsInput>;
+};
+export type UserCreateNestedOneWithoutBlockingInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutBlockingInput, Prisma.UserUncheckedCreateWithoutBlockingInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlockingInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserCreateNestedOneWithoutBlockedByInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutBlockedByInput, Prisma.UserUncheckedCreateWithoutBlockedByInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlockedByInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutBlockingNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutBlockingInput, Prisma.UserUncheckedCreateWithoutBlockingInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlockingInput;
+    upsert?: Prisma.UserUpsertWithoutBlockingInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBlockingInput, Prisma.UserUpdateWithoutBlockingInput>, Prisma.UserUncheckedUpdateWithoutBlockingInput>;
+};
+export type UserUpdateOneRequiredWithoutBlockedByNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutBlockedByInput, Prisma.UserUncheckedCreateWithoutBlockedByInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlockedByInput;
+    upsert?: Prisma.UserUpsertWithoutBlockedByInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBlockedByInput, Prisma.UserUpdateWithoutBlockedByInput>, Prisma.UserUncheckedUpdateWithoutBlockedByInput>;
+};
+export type UserCreateWithoutParticipantsInput = {
+    id?: string;
+    name: string;
+    email: string;
+    password: string;
+    avatar?: string | null;
+    isOnline?: boolean;
+    lastSeen?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput;
+    blockedBy?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput;
+    blocking?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput;
+    messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutParticipantsInput = {
+    id?: string;
+    name: string;
+    email: string;
+    password: string;
+    avatar?: string | null;
+    isOnline?: boolean;
+    lastSeen?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput;
+    blockedBy?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput;
+    blocking?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput;
+    messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutParticipantsInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutParticipantsInput, Prisma.UserUncheckedCreateWithoutParticipantsInput>;
+};
+export type UserUpsertWithoutParticipantsInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutParticipantsInput, Prisma.UserUncheckedUpdateWithoutParticipantsInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutParticipantsInput, Prisma.UserUncheckedCreateWithoutParticipantsInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutParticipantsInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutParticipantsInput, Prisma.UserUncheckedUpdateWithoutParticipantsInput>;
+};
+export type UserUpdateWithoutParticipantsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    lastSeen?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput;
+    blockedBy?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput;
+    blocking?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput;
+    messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutParticipantsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    lastSeen?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput;
+    blockedBy?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput;
+    blocking?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput;
+    messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput;
+};
+export type UserCreateWithoutSentMessagesInput = {
+    id?: string;
+    name: string;
+    email: string;
+    password: string;
+    avatar?: string | null;
+    isOnline?: boolean;
+    lastSeen?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput;
+    blockedBy?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput;
+    blocking?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput;
+    messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutSentMessagesInput = {
+    id?: string;
+    name: string;
+    email: string;
+    password: string;
+    avatar?: string | null;
+    isOnline?: boolean;
+    lastSeen?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput;
+    blockedBy?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput;
+    blocking?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput;
+    messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutSentMessagesInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>;
+};
+export type UserUpsertWithoutSentMessagesInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutSentMessagesInput, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutSentMessagesInput, Prisma.UserUncheckedCreateWithoutSentMessagesInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutSentMessagesInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutSentMessagesInput, Prisma.UserUncheckedUpdateWithoutSentMessagesInput>;
+};
+export type UserUpdateWithoutSentMessagesInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    lastSeen?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput;
+    blockedBy?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput;
+    blocking?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput;
+    messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutSentMessagesInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    lastSeen?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput;
+    blockedBy?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput;
+    blocking?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput;
+    messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput;
+};
+export type UserCreateWithoutMessageReactionsInput = {
+    id?: string;
+    name: string;
+    email: string;
+    password: string;
+    avatar?: string | null;
+    isOnline?: boolean;
+    lastSeen?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput;
+    participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput;
+    blockedBy?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput;
+    blocking?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput;
+};
+export type UserUncheckedCreateWithoutMessageReactionsInput = {
+    id?: string;
+    name: string;
+    email: string;
+    password: string;
+    avatar?: string | null;
+    isOnline?: boolean;
+    lastSeen?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput;
+    participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput;
+    blockedBy?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput;
+    blocking?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput;
+};
+export type UserCreateOrConnectWithoutMessageReactionsInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutMessageReactionsInput, Prisma.UserUncheckedCreateWithoutMessageReactionsInput>;
+};
+export type UserUpsertWithoutMessageReactionsInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutMessageReactionsInput, Prisma.UserUncheckedUpdateWithoutMessageReactionsInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutMessageReactionsInput, Prisma.UserUncheckedCreateWithoutMessageReactionsInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutMessageReactionsInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutMessageReactionsInput, Prisma.UserUncheckedUpdateWithoutMessageReactionsInput>;
+};
+export type UserUpdateWithoutMessageReactionsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    lastSeen?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput;
+    participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput;
+    blockedBy?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput;
+    blocking?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput;
+};
+export type UserUncheckedUpdateWithoutMessageReactionsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    lastSeen?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput;
+    participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput;
+    blockedBy?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput;
+    blocking?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput;
+};
+export type UserCreateWithoutBlockingInput = {
+    id?: string;
+    name: string;
+    email: string;
+    password: string;
+    avatar?: string | null;
+    isOnline?: boolean;
+    lastSeen?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput;
+    participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput;
+    blockedBy?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput;
+    messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutBlockingInput = {
+    id?: string;
+    name: string;
+    email: string;
+    password: string;
+    avatar?: string | null;
+    isOnline?: boolean;
+    lastSeen?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput;
+    participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput;
+    blockedBy?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput;
+    messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutBlockingInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutBlockingInput, Prisma.UserUncheckedCreateWithoutBlockingInput>;
+};
+export type UserCreateWithoutBlockedByInput = {
+    id?: string;
+    name: string;
+    email: string;
+    password: string;
+    avatar?: string | null;
+    isOnline?: boolean;
+    lastSeen?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    sentMessages?: Prisma.MessageCreateNestedManyWithoutSenderInput;
+    participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput;
+    blocking?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput;
+    messageReactions?: Prisma.MessageReactionCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutBlockedByInput = {
+    id?: string;
+    name: string;
+    email: string;
+    password: string;
+    avatar?: string | null;
+    isOnline?: boolean;
+    lastSeen?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    sentMessages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput;
+    participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput;
+    blocking?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput;
+    messageReactions?: Prisma.MessageReactionUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutBlockedByInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutBlockedByInput, Prisma.UserUncheckedCreateWithoutBlockedByInput>;
+};
+export type UserUpsertWithoutBlockingInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutBlockingInput, Prisma.UserUncheckedUpdateWithoutBlockingInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutBlockingInput, Prisma.UserUncheckedCreateWithoutBlockingInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutBlockingInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutBlockingInput, Prisma.UserUncheckedUpdateWithoutBlockingInput>;
+};
+export type UserUpdateWithoutBlockingInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    lastSeen?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput;
+    participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput;
+    blockedBy?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput;
+    messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutBlockingInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    lastSeen?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput;
+    participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput;
+    blockedBy?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput;
+    messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput;
+};
+export type UserUpsertWithoutBlockedByInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutBlockedByInput, Prisma.UserUncheckedUpdateWithoutBlockedByInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutBlockedByInput, Prisma.UserUncheckedCreateWithoutBlockedByInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutBlockedByInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutBlockedByInput, Prisma.UserUncheckedUpdateWithoutBlockedByInput>;
+};
+export type UserUpdateWithoutBlockedByInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    lastSeen?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sentMessages?: Prisma.MessageUpdateManyWithoutSenderNestedInput;
+    participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput;
+    blocking?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput;
+    messageReactions?: Prisma.MessageReactionUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutBlockedByInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    isOnline?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    lastSeen?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    sentMessages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput;
+    participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput;
+    blocking?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput;
+    messageReactions?: Prisma.MessageReactionUncheckedUpdateManyWithoutUserNestedInput;
+};
+/**
+ * Count Type UserCountOutputType
+ */
+export type UserCountOutputType = {
+    sentMessages: number;
+    participants: number;
+    blockedBy: number;
+    blocking: number;
+    messageReactions: number;
+};
+export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    sentMessages?: boolean | UserCountOutputTypeCountSentMessagesArgs;
+    participants?: boolean | UserCountOutputTypeCountParticipantsArgs;
+    blockedBy?: boolean | UserCountOutputTypeCountBlockedByArgs;
+    blocking?: boolean | UserCountOutputTypeCountBlockingArgs;
+    messageReactions?: boolean | UserCountOutputTypeCountMessageReactionsArgs;
+};
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserCountOutputType
+     */
+    select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null;
+};
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSentMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.MessageWhereInput;
+};
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountParticipantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.ConversationParticipantWhereInput;
+};
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBlockedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.UserBlockWhereInput;
+};
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBlockingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.UserBlockWhereInput;
+};
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMessageReactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.MessageReactionWhereInput;
+};
+export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    name?: boolean;
+    email?: boolean;
+    password?: boolean;
+    avatar?: boolean;
+    isOnline?: boolean;
+    lastSeen?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+    sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>;
+    participants?: boolean | Prisma.User$participantsArgs<ExtArgs>;
+    blockedBy?: boolean | Prisma.User$blockedByArgs<ExtArgs>;
+    blocking?: boolean | Prisma.User$blockingArgs<ExtArgs>;
+    messageReactions?: boolean | Prisma.User$messageReactionsArgs<ExtArgs>;
+    _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
+}, ExtArgs["result"]["user"]>;
+export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    name?: boolean;
+    email?: boolean;
+    password?: boolean;
+    avatar?: boolean;
+    isOnline?: boolean;
+    lastSeen?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+}, ExtArgs["result"]["user"]>;
+export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
+    id?: boolean;
+    name?: boolean;
+    email?: boolean;
+    password?: boolean;
+    avatar?: boolean;
+    isOnline?: boolean;
+    lastSeen?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+}, ExtArgs["result"]["user"]>;
+export type UserSelectScalar = {
+    id?: boolean;
+    name?: boolean;
+    email?: boolean;
+    password?: boolean;
+    avatar?: boolean;
+    isOnline?: boolean;
+    lastSeen?: boolean;
+    createdAt?: boolean;
+    updatedAt?: boolean;
+};
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "avatar" | "isOnline" | "lastSeen" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>;
+export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    sentMessages?: boolean | Prisma.User$sentMessagesArgs<ExtArgs>;
+    participants?: boolean | Prisma.User$participantsArgs<ExtArgs>;
+    blockedBy?: boolean | Prisma.User$blockedByArgs<ExtArgs>;
+    blocking?: boolean | Prisma.User$blockingArgs<ExtArgs>;
+    messageReactions?: boolean | Prisma.User$messageReactionsArgs<ExtArgs>;
+    _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
+};
+export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {};
+export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {};
+export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    name: "User";
+    objects: {
+        sentMessages: Prisma.$MessagePayload<ExtArgs>[];
+        participants: Prisma.$ConversationParticipantPayload<ExtArgs>[];
+        blockedBy: Prisma.$UserBlockPayload<ExtArgs>[];
+        blocking: Prisma.$UserBlockPayload<ExtArgs>[];
+        messageReactions: Prisma.$MessageReactionPayload<ExtArgs>[];
+    };
+    scalars: runtime.Types.Extensions.GetPayloadResult<{
+        id: string;
+        name: string;
+        email: string;
+        password: string;
+        avatar: string | null;
+        isOnline: boolean;
+        lastSeen: Date | null;
+        createdAt: Date;
+        updatedAt: Date;
+    }, ExtArgs["result"]["user"]>;
+    composites: {};
+};
+export type UserGetPayload<S extends boolean | null | undefined | UserDefaultArgs> = runtime.Types.Result.GetResult<Prisma.$UserPayload, S>;
+export type UserCountArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = Omit<UserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+    select?: UserCountAggregateInputType | true;
+};
+export interface UserDelegate<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: {
+        types: Prisma.TypeMap<ExtArgs>['model']['User'];
+        meta: {
+            name: 'User';
+        };
+    };
+    /**
+     * Find zero or one User that matches the filter.
+     * @param {UserFindUniqueArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserFindUniqueArgs>(args: Prisma.SelectSubset<T, UserFindUniqueArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find one User that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserFindUniqueOrThrowArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserFindUniqueOrThrowArgs>(args: Prisma.SelectSubset<T, UserFindUniqueOrThrowArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first User that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindFirstArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserFindFirstArgs>(args?: Prisma.SelectSubset<T, UserFindFirstArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find the first User that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindFirstOrThrowArgs} args - Arguments to find a User
+     * @example
+     * // Get one User
+     * const user = await prisma.user.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserFindFirstOrThrowArgs>(args?: Prisma.SelectSubset<T, UserFindFirstOrThrowArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Find zero or more Users that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Users
+     * const users = await prisma.user.findMany()
+     *
+     * // Get first 10 Users
+     * const users = await prisma.user.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const userWithIdOnly = await prisma.user.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends UserFindManyArgs>(args?: Prisma.SelectSubset<T, UserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>;
+    /**
+     * Create a User.
+     * @param {UserCreateArgs} args - Arguments to create a User.
+     * @example
+     * // Create one User
+     * const User = await prisma.user.create({
+     *   data: {
+     *     // ... data to create a User
+     *   }
+     * })
+     *
+     */
+    create<T extends UserCreateArgs>(args: Prisma.SelectSubset<T, UserCreateArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Create many Users.
+     * @param {UserCreateManyArgs} args - Arguments to create many Users.
+     * @example
+     * // Create many Users
+     * const user = await prisma.user.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends UserCreateManyArgs>(args?: Prisma.SelectSubset<T, UserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Create many Users and returns the data saved in the database.
+     * @param {UserCreateManyAndReturnArgs} args - Arguments to create many Users.
+     * @example
+     * // Create many Users
+     * const user = await prisma.user.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Create many Users and only return the `id`
+     * const userWithIdOnly = await prisma.user.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    createManyAndReturn<T extends UserCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, UserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Delete a User.
+     * @param {UserDeleteArgs} args - Arguments to delete one User.
+     * @example
+     * // Delete one User
+     * const User = await prisma.user.delete({
+     *   where: {
+     *     // ... filter to delete one User
+     *   }
+     * })
+     *
+     */
+    delete<T extends UserDeleteArgs>(args: Prisma.SelectSubset<T, UserDeleteArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Update one User.
+     * @param {UserUpdateArgs} args - Arguments to update one User.
+     * @example
+     * // Update one User
+     * const user = await prisma.user.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends UserUpdateArgs>(args: Prisma.SelectSubset<T, UserUpdateArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Delete zero or more Users.
+     * @param {UserDeleteManyArgs} args - Arguments to filter Users to delete.
+     * @example
+     * // Delete a few Users
+     * const { count } = await prisma.user.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends UserDeleteManyArgs>(args?: Prisma.SelectSubset<T, UserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Users
+     * const user = await prisma.user.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends UserUpdateManyArgs>(args: Prisma.SelectSubset<T, UserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>;
+    /**
+     * Update zero or more Users and returns the data updated in the database.
+     * @param {UserUpdateManyAndReturnArgs} args - Arguments to update many Users.
+     * @example
+     * // Update many Users
+     * const user = await prisma.user.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     * // Update zero or more Users and only return the `id`
+     * const userWithIdOnly = await prisma.user.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     *
+     */
+    updateManyAndReturn<T extends UserUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, UserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>;
+    /**
+     * Create or update one User.
+     * @param {UserUpsertArgs} args - Arguments to update or create a User.
+     * @example
+     * // Update or create a User
+     * const user = await prisma.user.upsert({
+     *   create: {
+     *     // ... data to create a User
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the User we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserUpsertArgs>(args: Prisma.SelectSubset<T, UserUpsertArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>;
+    /**
+     * Count the number of Users.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserCountArgs} args - Arguments to filter Users to count.
+     * @example
+     * // Count the number of Users
+     * const count = await prisma.user.count({
+     *   where: {
+     *     // ... the filter for the Users we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserCountArgs>(args?: Prisma.Subset<T, UserCountArgs>): Prisma.PrismaPromise<T extends runtime.Types.Utils.Record<'select', any> ? T['select'] extends true ? number : Prisma.GetScalarType<T['select'], UserCountAggregateOutputType> : number>;
+    /**
+     * Allows you to perform aggregations operations on a User.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserAggregateArgs>(args: Prisma.Subset<T, UserAggregateArgs>): Prisma.PrismaPromise<GetUserAggregateType<T>>;
+    /**
+     * Group by User.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+    **/
+    groupBy<T extends UserGroupByArgs, HasSelectOrTake extends Prisma.Or<Prisma.Extends<'skip', Prisma.Keys<T>>, Prisma.Extends<'take', Prisma.Keys<T>>>, OrderByArg extends Prisma.True extends HasSelectOrTake ? {
+        orderBy: UserGroupByArgs['orderBy'];
+    } : {
+        orderBy?: UserGroupByArgs['orderBy'];
+    }, OrderFields extends Prisma.ExcludeUnderscoreKeys<Prisma.Keys<Prisma.MaybeTupleToUnion<T['orderBy']>>>, ByFields extends Prisma.MaybeTupleToUnion<T['by']>, ByValid extends Prisma.Has<ByFields, OrderFields>, HavingFields extends Prisma.GetHavingFields<T['having']>, HavingValid extends Prisma.Has<ByFields, HavingFields>, ByEmpty extends T['by'] extends never[] ? Prisma.True : Prisma.False, InputErrors extends ByEmpty extends Prisma.True ? `Error: "by" must not be empty.` : HavingValid extends Prisma.False ? {
+        [P in HavingFields]: P extends ByFields ? never : P extends string ? `Error: Field "${P}" used in "having" needs to be provided in "by".` : [
+            Error,
+            'Field ',
+            P,
+            ` in "having" needs to be provided in "by"`
+        ];
+    }[HavingFields] : 'take' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "take", you also need to provide "orderBy"' : 'skip' extends Prisma.Keys<T> ? 'orderBy' extends Prisma.Keys<T> ? ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields] : 'Error: If you provide "skip", you also need to provide "orderBy"' : ByValid extends Prisma.True ? {} : {
+        [P in OrderFields]: P extends ByFields ? never : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+    }[OrderFields]>(args: Prisma.SubsetIntersection<T, UserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the User model
+     */
+    readonly fields: UserFieldRefs;
+}
+/**
+ * The delegate class that acts as a "Promise-like" for User.
+ * Why is this prefixed with `Prisma__`?
+ * Because we want to prevent naming conflicts as mentioned in
+ * https://github.com/prisma/prisma-client-js/issues/707
+ */
+export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise";
+    sentMessages<T extends Prisma.User$sentMessagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    participants<T extends Prisma.User$participantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$participantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConversationParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    blockedBy<T extends Prisma.User$blockedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$blockedByArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserBlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    blocking<T extends Prisma.User$blockingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$blockingArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserBlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    messageReactions<T extends Prisma.User$messageReactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$messageReactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MessageReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
+}
+/**
+ * Fields of the User model
+ */
+export interface UserFieldRefs {
+    readonly id: Prisma.FieldRef<"User", 'String'>;
+    readonly name: Prisma.FieldRef<"User", 'String'>;
+    readonly email: Prisma.FieldRef<"User", 'String'>;
+    readonly password: Prisma.FieldRef<"User", 'String'>;
+    readonly avatar: Prisma.FieldRef<"User", 'String'>;
+    readonly isOnline: Prisma.FieldRef<"User", 'Boolean'>;
+    readonly lastSeen: Prisma.FieldRef<"User", 'DateTime'>;
+    readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>;
+    readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>;
+}
+/**
+ * User findUnique
+ */
+export type UserFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: Prisma.UserSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: Prisma.UserOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.UserInclude<ExtArgs> | null;
+    /**
+     * Filter, which User to fetch.
+     */
+    where: Prisma.UserWhereUniqueInput;
+};
+/**
+ * User findUniqueOrThrow
+ */
+export type UserFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: Prisma.UserSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: Prisma.UserOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.UserInclude<ExtArgs> | null;
+    /**
+     * Filter, which User to fetch.
+     */
+    where: Prisma.UserWhereUniqueInput;
+};
+/**
+ * User findFirst
+ */
+export type UserFindFirstArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: Prisma.UserSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: Prisma.UserOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.UserInclude<ExtArgs> | null;
+    /**
+     * Filter, which User to fetch.
+     */
+    where?: Prisma.UserWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: Prisma.UserOrderByWithRelationInput | Prisma.UserOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Users.
+     */
+    cursor?: Prisma.UserWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Users.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Users.
+     */
+    distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[];
+};
+/**
+ * User findFirstOrThrow
+ */
+export type UserFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: Prisma.UserSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: Prisma.UserOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.UserInclude<ExtArgs> | null;
+    /**
+     * Filter, which User to fetch.
+     */
+    where?: Prisma.UserWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: Prisma.UserOrderByWithRelationInput | Prisma.UserOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for Users.
+     */
+    cursor?: Prisma.UserWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Users.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Users.
+     */
+    distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[];
+};
+/**
+ * User findMany
+ */
+export type UserFindManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: Prisma.UserSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: Prisma.UserOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.UserInclude<ExtArgs> | null;
+    /**
+     * Filter, which Users to fetch.
+     */
+    where?: Prisma.UserWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of Users to fetch.
+     */
+    orderBy?: Prisma.UserOrderByWithRelationInput | Prisma.UserOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing Users.
+     */
+    cursor?: Prisma.UserWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` Users from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` Users.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of Users.
+     */
+    distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[];
+};
+/**
+ * User create
+ */
+export type UserCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: Prisma.UserSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: Prisma.UserOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.UserInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a User.
+     */
+    data: Prisma.XOR<Prisma.UserCreateInput, Prisma.UserUncheckedCreateInput>;
+};
+/**
+ * User createMany
+ */
+export type UserCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Users.
+     */
+    data: Prisma.UserCreateManyInput | Prisma.UserCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * User createManyAndReturn
+ */
+export type UserCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: Prisma.UserSelectCreateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: Prisma.UserOmit<ExtArgs> | null;
+    /**
+     * The data used to create many Users.
+     */
+    data: Prisma.UserCreateManyInput | Prisma.UserCreateManyInput[];
+    skipDuplicates?: boolean;
+};
+/**
+ * User update
+ */
+export type UserUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: Prisma.UserSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: Prisma.UserOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.UserInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a User.
+     */
+    data: Prisma.XOR<Prisma.UserUpdateInput, Prisma.UserUncheckedUpdateInput>;
+    /**
+     * Choose, which User to update.
+     */
+    where: Prisma.UserWhereUniqueInput;
+};
+/**
+ * User updateMany
+ */
+export type UserUpdateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Users.
+     */
+    data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyInput>;
+    /**
+     * Filter which Users to update
+     */
+    where?: Prisma.UserWhereInput;
+    /**
+     * Limit how many Users to update.
+     */
+    limit?: number;
+};
+/**
+ * User updateManyAndReturn
+ */
+export type UserUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: Prisma.UserSelectUpdateManyAndReturn<ExtArgs> | null;
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: Prisma.UserOmit<ExtArgs> | null;
+    /**
+     * The data used to update Users.
+     */
+    data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyInput>;
+    /**
+     * Filter which Users to update
+     */
+    where?: Prisma.UserWhereInput;
+    /**
+     * Limit how many Users to update.
+     */
+    limit?: number;
+};
+/**
+ * User upsert
+ */
+export type UserUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: Prisma.UserSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: Prisma.UserOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.UserInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the User to update in case it exists.
+     */
+    where: Prisma.UserWhereUniqueInput;
+    /**
+     * In case the User found by the `where` argument doesn't exist, create a new User with this data.
+     */
+    create: Prisma.XOR<Prisma.UserCreateInput, Prisma.UserUncheckedCreateInput>;
+    /**
+     * In case the User was found with the provided `where` argument, update it with this data.
+     */
+    update: Prisma.XOR<Prisma.UserUpdateInput, Prisma.UserUncheckedUpdateInput>;
+};
+/**
+ * User delete
+ */
+export type UserDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: Prisma.UserSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: Prisma.UserOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.UserInclude<ExtArgs> | null;
+    /**
+     * Filter which User to delete.
+     */
+    where: Prisma.UserWhereUniqueInput;
+};
+/**
+ * User deleteMany
+ */
+export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Filter which Users to delete
+     */
+    where?: Prisma.UserWhereInput;
+    /**
+     * Limit how many Users to delete.
+     */
+    limit?: number;
+};
+/**
+ * User.sentMessages
+ */
+export type User$sentMessagesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: Prisma.MessageSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: Prisma.MessageOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MessageInclude<ExtArgs> | null;
+    where?: Prisma.MessageWhereInput;
+    orderBy?: Prisma.MessageOrderByWithRelationInput | Prisma.MessageOrderByWithRelationInput[];
+    cursor?: Prisma.MessageWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.MessageScalarFieldEnum | Prisma.MessageScalarFieldEnum[];
+};
+/**
+ * User.participants
+ */
+export type User$participantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConversationParticipant
+     */
+    select?: Prisma.ConversationParticipantSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the ConversationParticipant
+     */
+    omit?: Prisma.ConversationParticipantOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.ConversationParticipantInclude<ExtArgs> | null;
+    where?: Prisma.ConversationParticipantWhereInput;
+    orderBy?: Prisma.ConversationParticipantOrderByWithRelationInput | Prisma.ConversationParticipantOrderByWithRelationInput[];
+    cursor?: Prisma.ConversationParticipantWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.ConversationParticipantScalarFieldEnum | Prisma.ConversationParticipantScalarFieldEnum[];
+};
+/**
+ * User.blockedBy
+ */
+export type User$blockedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserBlock
+     */
+    select?: Prisma.UserBlockSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserBlock
+     */
+    omit?: Prisma.UserBlockOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.UserBlockInclude<ExtArgs> | null;
+    where?: Prisma.UserBlockWhereInput;
+    orderBy?: Prisma.UserBlockOrderByWithRelationInput | Prisma.UserBlockOrderByWithRelationInput[];
+    cursor?: Prisma.UserBlockWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.UserBlockScalarFieldEnum | Prisma.UserBlockScalarFieldEnum[];
+};
+/**
+ * User.blocking
+ */
+export type User$blockingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserBlock
+     */
+    select?: Prisma.UserBlockSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the UserBlock
+     */
+    omit?: Prisma.UserBlockOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.UserBlockInclude<ExtArgs> | null;
+    where?: Prisma.UserBlockWhereInput;
+    orderBy?: Prisma.UserBlockOrderByWithRelationInput | Prisma.UserBlockOrderByWithRelationInput[];
+    cursor?: Prisma.UserBlockWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.UserBlockScalarFieldEnum | Prisma.UserBlockScalarFieldEnum[];
+};
+/**
+ * User.messageReactions
+ */
+export type User$messageReactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageReaction
+     */
+    select?: Prisma.MessageReactionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the MessageReaction
+     */
+    omit?: Prisma.MessageReactionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.MessageReactionInclude<ExtArgs> | null;
+    where?: Prisma.MessageReactionWhereInput;
+    orderBy?: Prisma.MessageReactionOrderByWithRelationInput | Prisma.MessageReactionOrderByWithRelationInput[];
+    cursor?: Prisma.MessageReactionWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.MessageReactionScalarFieldEnum | Prisma.MessageReactionScalarFieldEnum[];
+};
+/**
+ * User without action
+ */
+export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: Prisma.UserSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: Prisma.UserOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: Prisma.UserInclude<ExtArgs> | null;
+};
+//# sourceMappingURL=User.d.ts.map
